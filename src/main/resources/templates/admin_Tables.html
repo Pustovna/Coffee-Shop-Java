@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org
+http://www.thymeleaf.org ">
+<head>
+    <title th:text="${title}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+<header th:insert="blocks/header :: header"></header>
+
+<center> <h2>Управление размещением посетителей</h2> </center><br>
+
+<!--------------------------------------Заполняем Форму------------------------------------------->
+<div class="container mt-5 mb-5">
+
+    <form action="/admin_menu" method="post" >
+        <center th:text="'Столы в помещении'"> </center><br>
+        <input type="number" name="tables_inside"      placeholder="Введите количество" class="form-control"><br>
+        <center th:text="'Столы на улице'"> </center><br>
+        <input type="number" name="tables_outside"      placeholder="Введите количество" class="form-control"><br>
+
+        <button type="submit" class="btn btn-success">Подтвердить</button>
+    </form>
+</div>
+<!-------------------------------------------------------------------------------------------------->
+
+
+</body>
+
+
+</html>

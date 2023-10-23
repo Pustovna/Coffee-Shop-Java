@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title th:text="${title}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+
+<div class="container">
+<form id="login" class="col col-sm-4 order mx-auto"> <!--  здесь важно прописать параметры для отправки на сервер, в том числе добавить method="post" и далее в бд. почитать можно тут https://developer.mozilla.org/ru/docs/Learn/Forms/Sending_and_retrieving_form_data-->
+
+    <img class="mb-4 d-flex mx-auto" src="data:image/png;base64,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">
+    <h1 class="h3 mb-3 fw-normal text-center">Please sign in</h1>
+
+    <div class="form-floating">
+        <input type="text" class="form-control" id="floatInput" placeholder="name" name="username">
+        <label for="floatInput">User name</label>
+    </div>
+    <!--  <div class="form-floating">-->
+    <!--    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email">-->
+    <!--    <label for="floatingInput">Email address</label>-->
+    <!--  </div>-->
+
+    <div class="form-floating mt-3">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+        <label for="floatingPassword">Password</label>
+    </div>
+
+<!--    <div class="checkbox mb-3">-->
+<!--        <label>-->
+<!--            <input type="checkbox" value="remember-me"> Remember me-->
+<!--        </label>-->
+<!--    </div>-->
+    <button class="w-100 btn btn-lg btn-primary mt-5" type="submit">Sign in</button>
+
+
+
+</form>
+</div>
+</body>
+<script src="/static/token.js"></script>
+</html>

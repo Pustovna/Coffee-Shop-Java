@@ -1,0 +1,174 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org">
+<!-------------------------------------------------------------------->
+<head th:insert="blocks/head :: head">
+
+</head>
+<!-------------------------------------------------------------------->
+<body>
+<header th:insert="blocks/header :: header"></header>
+
+<!--------------------------------------Заполняем Форму------------------------------------------->
+
+<!-------------------------------------------------------------------------------------------------->
+<div class="container mt-5">
+    <h1 class="text-center">Clients</h1>
+
+<!-------------------------------------------------------------------->
+
+    <div class=" col-12 mb-2 justify-content-start mb-3">
+        <button class="btn btn-outline-secondary" data-bs-target="#clientRegistration" data-bs-toggle="modal">Добавить клиента</button>
+    </div>
+
+    <table class="table table-bordered border-primary">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Last name</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Email</th>
+            <th scope="col">Address</th>
+            <th scope="col">Status</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="el:${CLIENTS}">
+            <th scope="row" th:text="'ID : ' + ${el.id}"></th>
+            <td th:text="${el.Name}"></td>
+            <td th:text="${el.LastName}"></td>
+            <td th:text="${el.Phone}"></td>
+            <td th:text="${el.Email}"></td>
+            <td th:text="${el.Adress}"></td>
+            <td th:text="${el.status}"></td>
+            <td><a th:href="'/Clients/'+${el.id}+'/details'"class="btn btn-warning"> Order </a></td>
+            <td><button class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        th:data-bs-whatever="${el.id}"
+                        th:data-bs-name="${el.Name}"
+                        th:data-bs-lastname="${el.LastName}"
+                        th:data-bs-address="${el.Adress}"
+                        th:data-bs-status="${el.status}"
+                        th:data-bs-phone="${el.phone}"
+                        th:data-bs-email="${el.email}"
+            >Edit</button></td>
+            <td><a th:href="'/Clients/'+${el.id}+'/remove'"class="btn btn-danger">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+            </svg></a></td>
+
+
+        </tr>
+        </tbody>
+
+
+
+
+    </table>
+
+    <!--            форма редактирования-->
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Change information</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post">
+                        <div class="mb-3">
+                            <label for="name" class="col-form-label">Name:</label>
+                            <textarea class="form-control" id="name" name="Name"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="last-name" class="col-form-label">Last name:</label>
+                            <textarea class="form-control" id="last-name" name="LastName"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="address" class="col-form-label">Address:</label>
+                            <textarea class="form-control" id="address" name="Adress"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="col-form-label">Phone:</label>
+                            <input type="tel" class="form-control" id="phone" name="Phone">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="col-form-label">Email:</label>
+                            <input type="email" class="form-control"  id="email" name="Email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="status" class="col-form-label">Status:</label>
+                            <select class="form-select form-control" aria-label="Status" id="status" name="status">
+                                <option selected value="false">Regular</option>
+                                <option value="true">VIP</option>
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Change</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="clientRegistration" tabindex="-1" aria-labelledby="clientRegistrationLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="clientRegistrationLabel">Add information about new client</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="/client_add">
+                        <div class="mb-3">
+                            <label class="col-form-label">Name:</label>
+                            <textarea class="form-control" name="Name"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="col-form-label">Last name:</label>
+                            <textarea class="form-control" name="LastName"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="col-form-label">Address:</label>
+                            <textarea class="form-control" name="Adress"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="col-form-label">Phone:</label>
+                            <input type="tel" class="form-control" name="Phone">
+                        </div>
+                        <div class="mb-3">
+                            <label class="col-form-label">Email:</label>
+                            <input type="email" class="form-control"  name="Email">
+                        </div>
+                        <div class="mb-3">
+                            <label class="col-form-label">Status:</label>
+                            <select class="form-select form-control" aria-label="Status" name="status">
+                                <option selected value="false">Regular</option>
+                                <option value="true">VIP</option>
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Change</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/static/change-date.js"></script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:insert="blocks/head :: head"></head>
+
+<body>
+<header th:insert="blocks/header :: header"></header>
+
+<div class="container">
+<form class="needs-validation was-validated mx-auto my-5" id="payment-form" novalidate="" style="max-width: 400px;" action="/client_Payment">
+
+    <h4 class="mb-3">Payment</h4>
+
+    <div class="my-3">
+        <div class="form-check">
+            <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked="" required="" value="credit">
+            <label class="form-check-label" for="credit">Credit card</label>
+        </div>
+        <div class="form-check">
+            <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required="" value="cash">
+            <label class="form-check-label" for="debit">Cash</label>
+        </div>
+    </div>
+
+    <div class="row gy-3 credit">
+        <div class="col-md-6">
+            <label for="cc-name" class="form-label">Name on card</label>
+            <input type="text" class="form-control" id="cc-name" placeholder="" required="">
+            <small class="text-muted">Full name as displayed on card</small>
+            <div class="invalid-feedback">
+                Name on card is required
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <label for="cc-number" class="form-label">Credit card number</label>
+            <input type="number" class="form-control" id="cc-number" placeholder="" required="">
+            <div class="invalid-feedback">
+                Credit card number is required
+            </div>
+        </div>
+
+        <div class="col-md-3 w-100">
+            <label for="cc-expiration" class="form-label">Expiration</label>
+            <div class="d-flex">
+                <input type="number" class="form-control me-4" id="cc-expiration" placeholder="month" required="">
+                <input type="number" min="23"  class="form-control" id="cc-expirationdyear" placeholder="year" required="">
+            </div>
+
+
+            <div class="invalid-feedback">
+                Expiration date required
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <label for="cc-cvv" class="form-label">CVV</label>
+            <input type="text" class="form-control" id="cc-cvv" placeholder="" required="">
+            <div class="invalid-feedback">
+                Security code required
+            </div>
+        </div>
+    </div>
+
+    <div class="mx-auto cash hidden">
+        <h5 class="text-center">We waiting cash</h5>
+    </div>
+
+    <hr class="my-4">
+
+    <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
+</form>
+
+    <div class="alert alert-success mx-auto hidden" role="alert" style="max-width: 400px;">
+        A simple success alert—check it out!
+    </div>
+</div>
+
+</body>
+<script src="/static/payment.js"></script>
+</html>

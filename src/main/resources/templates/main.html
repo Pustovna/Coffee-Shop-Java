@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org">
+
+<head th:insert="blocks/head :: head">
+
+<body>
+<header th:insert="blocks/header :: header"></header>
+
+
+
+<div class="container" th:switch="${role}">
+  <h3 class="text-center mb-5">User's role <span th:text="${role}"></span></h3>
+
+  <div class="main__list mx-auto p-5 mb-5" th:case="'ROLE_ADMIN'">
+    <ul class="">
+      <li class="list-group-item text-center"><h3><a href="/admin_clients" class="text-center">Clients</a></h3> </li>
+      <li class="list-group-item text-center"><h3><a href="/admin_menu" class="text-center">Menu</a></h3></li>
+      <li class="list-group-item text-center"><h3><a href="/admin_tables" class="text-center">Tables</a></h3></li>
+      <li class="list-group-item text-center"><h3><a href="/admin_barista" class="text-center">Baristas</a></h3></li>
+<!--      <li class="list-group-item text-center"><h3><a href="/orders" class=" text-danger">Сделать ссылку на заказы</a></h3></li>-->
+    </ul>
+  </div>
+
+
+  <div class="main__list mx-auto p-5 mb-5"  th:case="'ROLE_USER'">
+    <ul class="">
+      <li class="list-group-item text-center"><h3><a th:href="'/client/' + ${id}" class="text-center">Profile</a></h3></li>
+      <li class="list-group-item text-center"><h3><a th:href="'/Clients/' + ${id} +'/details'"   class="text-center">To make an order</a></h3></li>
+<!--      <li class="list-group-item text-center"><h5><a href="/admin_clients" class="text-center text-danger">All my orders &ndash;&gt; Выводим кнопку, когда будут готовы все ордеры</a></h5></li>-->
+    </ul>
+  </div>
+
+  <div th:case="*">
+    <ul class="">
+      <li class="list-group-item"><a href="/admin_clients"></a></li>
+      <li class="list-group-item">A second item</li>
+      <li class="list-group-item">A third item</li>
+      <li class="list-group-item">A fourth item</li>
+      <li class="list-group-item">And a fifth one</li>
+    </ul>
+  </div>
+
+  <div class="mt-5 mt-auto">
+    <img class="d-flex m-auto" height="200" src="/static/img/High-tech-coffee-simplize.png" >
+  </div>
+
+</div>
+
+
+</body>
+</html>

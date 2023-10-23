@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org">
+<!-------------------------------------------------------------------->
+<head th:insert="blocks/head :: head">
+
+</head>
+<!-------------------------------------------------------------------->
+<body>
+<header th:insert="blocks/header :: header"></header>
+<div class="container">
+
+<!--------------------------------------Кнопка вызова формы------------------------------------------->
+<!--<div class="container mt-5 mb-5 w-50 mx-auto">-->
+<!--    <h3 class="text-center">New product</h3>-->
+<!--    <form action="/admin_menu" method="post" >-->
+<!--        <input type="text" name="title"        placeholder="Name" class="form-control"><br>-->
+<!--        <textarea type="text" name="full_text" placeholder="About product" class="form-control"></textarea><br>-->
+<!--        <input type="number" name="price"      placeholder="Price" class="form-control"><br>-->
+<!--        <button type="submit" class="btn btn-success w-100">Add product</button>-->
+<!--    </form>-->
+<!--</div>-->
+    <h1 class="text-center mb-5">Menu
+
+    </h1>
+    <div class=" col-12 mb-2 justify-content-start mb-3">
+        <button class="btn btn-outline-secondary" data-bs-target="#add_product" data-bs-toggle="modal">New product</button>
+    </div>
+
+
+<!-------------------------------------------------------------------------------------------------->
+<div class="mt-5">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        <div class="col" th:each="el:${Items}">
+
+
+            <div class="card shadow-lg h-100">
+
+<!--                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">-->
+<!--                    <rect width="100%" height="100%" fill="#55595c"></rect>-->
+<!--                    <text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>-->
+<!--                </svg>-->
+
+                <img src="/static/img/placeholder.png">
+
+
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${el.title}"></h5>
+                    <p class="card-text" th:text="${el.full_text}"></p>
+                    <p class="card-text"><span>Price: </span><span class="price" th:text="${el.price}"></span></p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#edit_product"
+                               th:data-bs-whatever="${el.id}"
+                               th:data-bs-name="${el.title}"
+                               th:data-bs-fullText="${el.full_text}"
+                               th:data-bs-price="${el.price}"
+                            > Change
+                            </button>
+                            <a th:href="'/admin_menu/'+${el.id}+'/remove'" class="btn btn-outline-danger"> Delete </a>
+
+                            <!--<button type="button" th:href="'/admin_menu/'+${el.id}+'/edit'" class="btn btn-outline-primary">Изменить</button>
+                            <button type="button" th:href="'/admin_menu/'+${el.id}+'/remove'" class="btn btn-outline-danger">Удалить</button>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--------------------------------------Форма добавления продукта------------------------------------------->
+
+        <div class="modal fade" id="add_product" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5 text-center" id="exampleModalLabel">New product</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" action="/admin_menu">
+                            <div class="mb-3">
+                                <label for="name" class="col-form-label">Product name:</label>
+                                <textarea class="form-control" id="name" name="title"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="full_text" class="col-form-label">Description:</label>
+                                <textarea class="form-control" id="full_text" name="full_text"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="price" class="col-form-label">Price:</label>
+                                <input type="number" class="form-control" id="price" name="price">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Add</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!------------------------------------------------------------------------------------------------->
+
+
+
+        <!--------------------------------------Форма редактирования продукта------------------------------------------->
+        <div class="modal fade" id="edit_product" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5 text-center">Edit product</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" action="/admin_menu">
+                            <div class="mb-3">
+                                <label  class="col-form-label">Product name:</label>
+                                <textarea class="form-control" id="title" name="title"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label  class="col-form-label">Description:</label>
+                                <textarea class="form-control" id="full_textChange"  name="full_text"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="col-form-label">Price:</label>
+                                <input type="number" class="form-control" id="priceChange" name="price">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Add</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+<!--      <div th:each="el : ${Items}" class="alert alert-info mt-2"> &lt;!&ndash;создаём цикл для отображения элементов таблицы&ndash;&gt;-->
+<!--        <h2 th:text="${el.title}"></h2>-->
+<!--        <p th:text="${el.full_text}"></p>-->
+<!--        <h3 th:text="${el.price}></h3>-->
+<!--          <a th:href="'/admin_menu/'+${el.id}+'/edit'" class="btn btn-warning"> Изменить </a>-->
+<!--        <a th:href="'/admin_menu/'+${el.id}+'/remove'"class="btn btn-warning"> Удалить </a>-->
+<!--    </div>-->
+</div>
+
+</div>
+
+</div>
+<script src="/static/change-date.js"></script>
+</body>
+
+
+</html>
